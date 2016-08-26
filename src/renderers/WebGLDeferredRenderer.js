@@ -97,5 +97,15 @@ Object.assign(WebGLDeferredRenderer.prototype, {
         this.clearBeforeRender = cbr;
         this.drawCount += draws;
         /////////////
+    },
+
+    resize: function (width, height) {
+        PIXI.WebGLRenderer.prototype.resize.call(this, width, height);
+
+        // update our render targets.
+        if (this.diffuseTexture && this.normalsTexture) {
+            this.diffuseTexture.resize(this.width, this.height, true);
+            this.normalsTexture.resize(this.width, this.height, true);
+        }
     }
 });
